@@ -3,7 +3,7 @@ import { IMAGE_PATH_BASE } from "../constants";
 
 function DisplayMovies({ movies }) {
   return (
-    <div className="grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-10 lg:gap-28 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 px-16 md:px-10 mb-14 mt-12">
+    <div className="container grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-10 lg:gap-24 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 mb-14 mt-12 px-20 lg:px-3 xl:px-0">
       {movies.map((movie) => (
         <Movie key={movie.id} movie={movie} />
       ))}
@@ -16,7 +16,7 @@ export default DisplayMovies;
 function Movie({ movie }) {
   return (
     <Link to={`/${movie.id}`}>
-      <div className="overflow-hidden rounded-lg h-96 cursor-pointer hover:brightness-50 duration-300">
+      <div className="overflow-hidden rounded-lg h-96  cursor-pointer hover:brightness-50 duration-300">
         <img
           src={`${IMAGE_PATH_BASE}${movie.poster_path}`}
           className="w-full h-[85%]"

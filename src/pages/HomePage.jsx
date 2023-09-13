@@ -60,17 +60,21 @@ function HomePage({
         {query.length <= 2 && (
           <>
             <FeaturedMovie movie={featuredMovie} />
-            <h2 className="uppercase font-bold text-xl px-16 md:px-10 mt-10">
-              popular movies
-            </h2>
+            <div className="container px-20 lg:px-3 xl:px-0">
+              <h2 className="uppercase self-start font-bold text-xl text-center md:text-left mt-10 ">
+                popular movies
+              </h2>
+            </div>
             <DisplayMovies movies={popularMovies} />
           </>
         )}
         {query.length > 2 && (
           <>
-            <h2 className="uppercase font-bold text-xl px-16 md:px-10 mt-10">
-              Searched movies
-            </h2>
+            <div className="container px-20 lg:px-3 xl:px-0">
+              <h2 className="uppercase self-start font-bold text-xl text-center md:text-left mt-10 ">
+                Searched movies
+              </h2>
+            </div>
             <DisplayMovies movies={searchedMovies} />
           </>
         )}
