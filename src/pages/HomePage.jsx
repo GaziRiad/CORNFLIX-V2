@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
+
+import { API_KEY, POPULAR_URL, URL_QUERIES } from "../constants";
 import FeaturedMovie from "../components/FeaturedMovie";
 import NavBar from "../components/NavBar";
+import SearchBar from "../components/SearchBar";
+import BookMark from "../components/BookMark";
 import PopularMovies from "../components/PopularMovies";
-
-// import URL from "../constants/index";
 
 function HomePage() {
   const [popularMovies, setPopularMovies] = useState([]);
   const [featuredMovie, setFeaturedMovie] = useState({});
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     async function fetchPopularMovies() {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/movie/popular?api_key=db3cf4891cc843bd89f697bffe4118cc&language=en-US&page=1`
-      );
+      const res = await fetch(`${POPULAR_URL}api_key=${API_KEY}${URL_QUERIES}`);
       const data = await res.json();
       setFeaturedMovie(data.results[0]);
       setPopularMovies(data.results);
@@ -21,10 +22,22 @@ function HomePage() {
     fetchPopularMovies();
   }, []);
 
+  useEffect(() => {
+    if (query.length <= 3) return;
+    async function fetchSearchMovies() {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/search/movie?query=spider&include_adult=false&language=en-US&page=1`
+      );
+    }
+  }, [query]);
+
   return (
     <>
       <header className="mb-10">
-        <NavBar />
+        <NavBar>
+          <SearchBar query={query} setQuery={setQuery} />
+          <BookMark />
+        </NavBar>
         <FeaturedMovie movie={featuredMovie} />
       </header>
       <main className=" px-16 md:px-10 mb-24">

@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { IMAGE_PATH_BASE } from "../constants";
 
 function PopularMovies({ movies }) {
-  console.log(movies);
   return (
     <div className="grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-10 lg:gap-20 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 ">
       {movies.map((movie) => (
