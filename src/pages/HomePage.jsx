@@ -40,6 +40,7 @@ function HomePage() {
   useEffect(() => {
     if (query.length < 3) return;
     async function fetchSearchMovies() {
+      setSearchedMovies([]);
       const res = await fetch(
         `${SEARCH_MOVIE_URL}query=${query}&api_key=${API_KEY}${URL_QUERIES}&page=${currentPage}`
       );
