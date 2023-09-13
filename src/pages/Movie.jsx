@@ -25,7 +25,7 @@ function Movie() {
       <header>
         <NavBar />
       </header>
-      <div className="container mx-auto flex items-center py-12 gap-12">
+      <div className="container mx-auto flex flex-col items-center py-12 gap-6 md:flex-row">
         <img
           src={`${IMAGE_PATH_BASE}${movie.poster_path}`}
           className=" h-[35vh]"
@@ -34,10 +34,10 @@ function Movie() {
           <p className="text-3xl text-center font-bold mb-6 lg:text-left xl:text-4xl">
             {movie.title}
           </p>
-          <p className="text-xl text-center leading-8 text-slate-600 lg:text-left w-3/4">
+          <p className="text-xl text-center leading-8 text-slate-700 px-4 lg:text-left lg:px-0 ">
             {movie.overview}
           </p>
-          <div className="mt-4 flex flex-col gap-2">
+          <div className="mt-6 flex flex-col gap-2 items-center lg:items-start">
             <p>
               <span className="text-lg font-medium pr-4 text-zinc-700">
                 IMDB Rating :
@@ -76,8 +76,11 @@ function Movie() {
                       ? " bg-red-500"
                       : genre.name.toLowerCase() === "adventure"
                       ? "bg-green-500"
-                      : genre.name.toLowerCase() === "drama"
+                      : genre.name.toLowerCase() === "drama" ||
+                        genre.name.toLowerCase() === "fantasy"
                       ? "bg-violet-500"
+                      : genre.name.toLowerCase() === "comedy"
+                      ? " bg-pink-500"
                       : "bg-blue-500"
                   }`}
                 >
