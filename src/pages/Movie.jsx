@@ -65,28 +65,30 @@ function Movie() {
               <span>{movie.budget} 💵</span>
             </p>
             <p className="">
-              <span className="text-lg font-medium pr-4 text-zinc-700">
+              <span className="text-lg font-medium text-zinc-700">
                 Movie Genre :
               </span>
-              {movie?.genres?.map((genre) => (
-                <span
-                  key={genre.name}
-                  className={`uppercase mr-2 px-4 py-1.5 text-white rounded-full text-sm  ${
-                    genre.name.toLowerCase() === "action"
-                      ? " bg-red-500"
-                      : genre.name.toLowerCase() === "adventure"
-                      ? "bg-green-500"
-                      : genre.name.toLowerCase() === "drama" ||
-                        genre.name.toLowerCase() === "fantasy"
-                      ? "bg-violet-500"
-                      : genre.name.toLowerCase() === "comedy"
-                      ? " bg-pink-500"
-                      : "bg-blue-500"
-                  }`}
-                >
-                  {genre.name}
-                </span>
-              ))}
+              <span className="flex flex-wrap">
+                {movie?.genres?.map((genre) => (
+                  <span
+                    key={genre.name}
+                    className={`uppercase mr-2 px-4 py-1.5 text-white rounded-full text-sm ${
+                      genre.name.toLowerCase() === "action"
+                        ? " bg-red-500"
+                        : genre.name.toLowerCase() === "adventure"
+                        ? "bg-green-500"
+                        : genre.name.toLowerCase() === "drama" ||
+                          genre.name.toLowerCase() === "fantasy"
+                        ? "bg-violet-500"
+                        : genre.name.toLowerCase() === "comedy"
+                        ? " bg-pink-500"
+                        : "bg-blue-500"
+                    }`}
+                  >
+                    {genre.name}
+                  </span>
+                ))}
+              </span>
             </p>
           </div>
         </div>
