@@ -1,4 +1,4 @@
-function SearchBar({ query, setQuery }) {
+function SearchBar({ query, dispatch }) {
   return (
     <div className="flex gap-1 bg-white rounded-full w-1/3  px-1 py-2">
       <svg
@@ -13,7 +13,9 @@ function SearchBar({ query, setQuery }) {
         type="text"
         className="w-full outline-none"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) =>
+          dispatch({ type: "setQuery", payload: e.target.value })
+        }
       ></input>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import {
   API_KEY,
@@ -13,14 +13,14 @@ import BookMark from "../components/BookMark";
 import DisplayMovies from "../components/DisplayMovies";
 import Button from "../components/Button";
 
-function HomePage() {
-  const [popularMovies, setPopularMovies] = useState([]);
-  const [featuredMovie, setFeaturedMovie] = useState({});
-
-  const [query, setQuery] = useState("");
-  const [searchedMovies, setSearchedMovies] = useState([]);
-
-  const [currentPage, setCurrentPage] = useState(1);
+function HomePage({
+  dispatch,
+  popularMovies,
+  query,
+  searchedMovies,
+  currentPage,
+}) {
+  let featuredMovie = popularMovies[0];
 
   useEffect(() => {
     if (query.length > 2) return;
@@ -29,37 +29,30 @@ function HomePage() {
         `${POPULAR_URL}api_key=${API_KEY}${URL_QUERIES}&page=${currentPage}`
       );
       const data = await res.json();
-      setFeaturedMovie(data.results[0]);
-      setPopularMovies((popularMovies) =>
-        currentPage === 1 ? data.results : [...popularMovies, ...data.results]
-      );
+
+      dispatch({ type: "addPopularMovies", payload: data.results });
     }
     fetchPopularMovies();
-  }, [query, currentPage]);
+  }, [dispatch, query, currentPage]);
 
   useEffect(() => {
     if (query.length < 3) return;
     async function fetchSearchMovies() {
-      setSearchedMovies([]);
+      dispatch({ type: "clearSearchedMovies", payload: [] });
       const res = await fetch(
         `${SEARCH_MOVIE_URL}query=${query}&api_key=${API_KEY}${URL_QUERIES}&page=${currentPage}`
       );
       const data = await res.json();
-      console.log(data);
-      setSearchedMovies((searchedMovies) => [
-        ...searchedMovies,
-        ...data.results,
-      ]);
+      dispatch({ type: "addSearchedMovies", payload: data.results });
     }
     fetchSearchMovies();
-  }, [query, currentPage]);
-  console.log(searchedMovies);
+  }, [query, currentPage, dispatch]);
 
   return (
     <>
       <header>
         <NavBar>
-          <SearchBar query={query} setQuery={setQuery} />
+          <SearchBar query={query} dispatch={dispatch} />
           <BookMark />
         </NavBar>
       </header>
@@ -81,7 +74,7 @@ function HomePage() {
             <DisplayMovies movies={searchedMovies} />
           </>
         )}
-        <Button setCurrentPage={setCurrentPage}>Load more...</Button>
+        <Button dispatch={dispatch}>Load more...</Button>
       </main>
       <footer className="bg-slate-300 py-8">
         <p className="text-center">
