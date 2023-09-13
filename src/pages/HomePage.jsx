@@ -10,7 +10,8 @@ import FeaturedMovie from "../components/FeaturedMovie";
 import NavBar from "../components/NavBar";
 import SearchBar from "../components/SearchBar";
 import BookMark from "../components/BookMark";
-import PopularMovies from "../components/PopularMovies";
+import DisplayMovies from "../components/DisplayMovies";
+import Button from "../components/Button";
 
 function HomePage() {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -19,46 +20,67 @@ function HomePage() {
   const [query, setQuery] = useState("");
   const [searchedMovies, setSearchedMovies] = useState([]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
+    if (query.length > 2) return;
     async function fetchPopularMovies() {
-      const res = await fetch(`${POPULAR_URL}api_key=${API_KEY}${URL_QUERIES}`);
+      const res = await fetch(
+        `${POPULAR_URL}api_key=${API_KEY}${URL_QUERIES}&page=${currentPage}`
+      );
       const data = await res.json();
       setFeaturedMovie(data.results[0]);
-      setPopularMovies(data.results);
+      setPopularMovies((popularMovies) =>
+        currentPage === 1 ? data.results : [...popularMovies, ...data.results]
+      );
     }
     fetchPopularMovies();
-  }, []);
+  }, [query, currentPage]);
 
   useEffect(() => {
     if (query.length < 3) return;
     async function fetchSearchMovies() {
       const res = await fetch(
-        `${SEARCH_MOVIE_URL}query=${query}&api_key=${API_KEY}${URL_QUERIES}`
+        `${SEARCH_MOVIE_URL}query=${query}&api_key=${API_KEY}${URL_QUERIES}&page=${currentPage}`
       );
       const data = await res.json();
       console.log(data);
-      setSearchedMovies(data.results);
+      setSearchedMovies((searchedMovies) => [
+        ...searchedMovies,
+        ...data.results,
+      ]);
     }
     fetchSearchMovies();
-  }, [query]);
+  }, [query, currentPage]);
+  console.log(searchedMovies);
 
   return (
     <>
-      <header className="">
+      <header>
         <NavBar>
           <SearchBar query={query} setQuery={setQuery} />
           <BookMark />
         </NavBar>
       </header>
-      <main className=" px-16 md:px-10 mb-24">
-        {searchedMovies.length === 0 && (
+      <main className="flex flex-col items-center">
+        {query.length <= 2 && (
           <>
             <FeaturedMovie movie={featuredMovie} />
-            <h2 className="uppercase font-bold text-xl mb-6">popular movies</h2>
-            <PopularMovies movies={popularMovies} />
+            <h2 className="uppercase font-bold text-xl px-16 md:px-10 mt-10">
+              popular movies
+            </h2>
+            <DisplayMovies movies={popularMovies} />
           </>
         )}
-        {searchedMovies && <PopularMovies movies={searchedMovies} />}
+        {query.length > 2 && (
+          <>
+            <h2 className="uppercase font-bold text-xl px-16 md:px-10 mt-10">
+              Searched movies
+            </h2>
+            <DisplayMovies movies={searchedMovies} />
+          </>
+        )}
+        <Button setCurrentPage={setCurrentPage}>Load more...</Button>
       </main>
       <footer className="bg-slate-300 py-8">
         <p className="text-center">

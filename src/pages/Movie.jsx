@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { API_KEY, URL_QUERIES, IMAGE_PATH_BASE } from "../constants";
 
+import NavBar from "../components/NavBar";
 function Movie() {
   const { id: MovieID } = useParams();
   const [movie, setMovie] = useState({});
@@ -21,6 +22,9 @@ function Movie() {
 
   return (
     <div className="bg-slate-300">
+      <header>
+        <NavBar />
+      </header>
       <div className="container mx-auto flex items-center py-12 gap-12">
         <img
           src={`${IMAGE_PATH_BASE}${movie.poster_path}`}
