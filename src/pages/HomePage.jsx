@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-import { API_KEY, POPULAR_URL, URL_QUERIES } from "../constants";
+import {
+  API_KEY,
+  POPULAR_URL,
+  SEARCH_MOVIE_URL,
+  URL_QUERIES,
+} from "../constants";
 import FeaturedMovie from "../components/FeaturedMovie";
 import NavBar from "../components/NavBar";
 import SearchBar from "../components/SearchBar";
@@ -10,7 +15,9 @@ import PopularMovies from "../components/PopularMovies";
 function HomePage() {
   const [popularMovies, setPopularMovies] = useState([]);
   const [featuredMovie, setFeaturedMovie] = useState({});
+
   const [query, setQuery] = useState("");
+  const [searchedMovies, setSearchedMovies] = useState([]);
 
   useEffect(() => {
     async function fetchPopularMovies() {
@@ -23,26 +30,35 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (query.length <= 3) return;
+    if (query.length < 3) return;
     async function fetchSearchMovies() {
       const res = await fetch(
-        `https://api.themoviedb.org/3/search/movie?query=spider&include_adult=false&language=en-US&page=1`
+        `${SEARCH_MOVIE_URL}query=${query}&api_key=${API_KEY}${URL_QUERIES}`
       );
+      const data = await res.json();
+      console.log(data);
+      setSearchedMovies(data.results);
     }
+    fetchSearchMovies();
   }, [query]);
 
   return (
     <>
-      <header className="mb-10">
+      <header className="">
         <NavBar>
           <SearchBar query={query} setQuery={setQuery} />
           <BookMark />
         </NavBar>
-        <FeaturedMovie movie={featuredMovie} />
       </header>
       <main className=" px-16 md:px-10 mb-24">
-        <h2 className="uppercase font-bold text-xl mb-6">popular movies</h2>
-        <PopularMovies movies={popularMovies} />
+        {searchedMovies.length === 0 && (
+          <>
+            <FeaturedMovie movie={featuredMovie} />
+            <h2 className="uppercase font-bold text-xl mb-6">popular movies</h2>
+            <PopularMovies movies={popularMovies} />
+          </>
+        )}
+        {searchedMovies && <PopularMovies movies={searchedMovies} />}
       </main>
       <footer className="bg-slate-300 py-8">
         <p className="text-center">
