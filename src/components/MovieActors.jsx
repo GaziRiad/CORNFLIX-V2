@@ -14,7 +14,7 @@ function MovieActors({ actors }) {
               src={`${IMAGE_PATH_BASE}${actor.profile_path}`}
               className="w-full h-[80%]"
             />
-            <p className="bg-zinc-800 h-[20%] text-white py-2.5 text-center px-2 text-sm font-semibold ">
+            <p className="bg-zinc-800 h-[20%] text-white py-2.5 text-center text-sm font-semibold ">
               {actor.name}
             </p>
           </div>
