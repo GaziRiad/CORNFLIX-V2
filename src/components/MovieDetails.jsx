@@ -3,7 +3,7 @@ import { IMAGE_PATH_BASE } from "../constants";
 function MovieDetails({ movie }) {
   return (
     <div className="bg-gray-600  py-12 text-white px-4 md:px-0">
-      <div className="container mx-auto flex flex-col items-center py-12 px-12 rounded-lg gap-6 md:flex-row bg-gray-900 ">
+      <div className="container mx-auto flex flex-col items-center py-12 px-2 rounded-lg gap-6 md:px-12  md:flex-row bg-gray-900 ">
         <img
           src={`${IMAGE_PATH_BASE}${movie.poster_path}`}
           className=" h-[35vh]"

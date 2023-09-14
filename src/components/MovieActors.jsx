@@ -3,7 +3,7 @@ import { IMAGE_PATH_BASE } from "../constants";
 function MovieActors({ actors }) {
   console.log(actors);
   return (
-    <div className="container mx-auto grid grid-cols-2 gap-6 gap-y-8 md:grid-cols-3 md:gap-16 lg:gap-14 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 mb-14 mt-12 px-20 lg:px-3 xl:px-0">
+    <div className="container mx-auto grid grid-cols-2 gap-6 gap-y-8 md:grid-cols-3 md:gap-16 lg:gap-14 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 mb-14 mt-12 px-10 lg:px-3 xl:px-0">
       {actors.map((actor) => {
         return (
           <div
@@ -14,7 +14,7 @@ function MovieActors({ actors }) {
               src={`${IMAGE_PATH_BASE}${actor.profile_path}`}
               className="w-full h-[80%]"
             />
-            <p className="bg-zinc-800 h-[20%] text-white py-4 text-center px-2 text-sm font-semibold ">
+            <p className="bg-zinc-800 h-[20%] text-white py-2.5 text-center px-2 text-sm font-semibold ">
               {actor.name}
             </p>
           </div>
