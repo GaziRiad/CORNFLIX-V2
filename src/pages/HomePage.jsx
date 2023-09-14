@@ -12,6 +12,7 @@ import SearchBar from "../components/SearchBar";
 import BookMark from "../components/BookMark";
 import DisplayMovies from "../components/DisplayMovies";
 import Button from "../components/Button";
+import Footer from "../components/Footer";
 
 function HomePage({
   dispatch,
@@ -60,7 +61,7 @@ function HomePage({
         {query.length <= 2 && (
           <>
             <FeaturedMovie movie={featuredMovie} />
-            <div className="container px-20 lg:px-3 xl:px-0">
+            <div className="container  mx-auto px-20 lg:px-3 xl:px-0">
               <h2 className="uppercase self-start font-bold text-xl text-center md:text-left mt-10 ">
                 popular movies
               </h2>
@@ -80,20 +81,7 @@ function HomePage({
         )}
         <Button dispatch={dispatch}>Load more...</Button>
       </main>
-      <footer className="bg-slate-300 py-8">
-        <p className="text-center">
-          &copy; 2023, fully designed and developed by{" "}
-          <a
-            href="https://twitter.com/Riadh_Gazi"
-            target="_blank"
-            rel="noreferrer"
-            className="underline font-semibold"
-          >
-            RIAD HALLOUCH
-          </a>
-          , using TMDB API.
-        </p>
-      </footer>
+      <Footer />
     </>
   );
 }

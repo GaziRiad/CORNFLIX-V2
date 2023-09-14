@@ -21,7 +21,8 @@ function MovieDetails({ movie }) {
                 IMDB Rating :
               </span>
               <span className="text-lg font-medium">
-                {movie.vote_average} ⭐
+                {Math.round(movie.vote_average)}
+                <span className=" text-gray-400"> /10</span> ⭐
               </span>
             </p>
             <p>
